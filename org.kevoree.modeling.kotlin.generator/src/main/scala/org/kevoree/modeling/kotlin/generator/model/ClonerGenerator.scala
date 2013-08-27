@@ -66,7 +66,7 @@ trait ClonerGenerator {
     ctxV.put("packageName", packageName)
     ctxV.put("potentialRoots", ProcessorHelper.collectAllClassifiersInModel(model))
     ctxV.put("ctx", ctx)
-    ctxV.put("helper", new org.kevoree.modeling.kotlin.generator.ProcessorHelperClass())
+    ctxV.put("helper", new org.kevoree.modeling.kotlin.generator.ProcessorHelperClass(ctx))
     ctxV.put("packages", ctx.packageFactoryMap.values())
     template.merge(ctxV, pr)
     pr.flush()

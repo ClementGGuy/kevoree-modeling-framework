@@ -49,7 +49,7 @@ trait ConstantsGenerator {
     val template = ve.getTemplate("/templates/util/ConstGenerator.vm")
     val ctxV = new VelocityContext()
     ctxV.put("ctx", ctx)
-    ctxV.put("FQNHelper",new org.kevoree.modeling.kotlin.generator.ProcessorHelperClass())
+    ctxV.put("FQNHelper",new org.kevoree.modeling.kotlin.generator.ProcessorHelperClass(ctx))
     ctxV.put("names", names)
     template.merge(ctxV, pr)
     pr.flush()

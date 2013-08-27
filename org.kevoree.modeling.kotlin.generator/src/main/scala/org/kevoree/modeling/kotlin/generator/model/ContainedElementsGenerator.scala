@@ -24,7 +24,7 @@ trait ContainedElementsGenerator {
     val ctxV = new VelocityContext()
     ctxV.put("ctx", ctx)
     ctxV.put("currentClass", cls)
-    ctxV.put("FQNHelper", new ProcessorHelperClass())
+    ctxV.put("FQNHelper", new ProcessorHelperClass(ctx))
     ctxV.put("packElem",ProcessorHelper.fqn(ctx, ctx.getBasePackageForUtilitiesGeneration) + ".util")
 
     template.merge(ctxV, pr)

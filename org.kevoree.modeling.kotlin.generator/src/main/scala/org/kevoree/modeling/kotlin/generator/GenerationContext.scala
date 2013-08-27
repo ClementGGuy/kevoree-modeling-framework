@@ -56,6 +56,14 @@ class GenerationContext {
 
 
   /**
+   * Name provider used for the type names during serialization and the factory name during loading
+   */
+  var nameProvider : KotlinGeneratorNameProvider = new KMFNameProvider
+  
+  def getNameProvider : KotlinGeneratorNameProvider = nameProvider
+  def setNameProvider(newNameProvider : KotlinGeneratorNameProvider) = nameProvider = newNameProvider
+  
+  /**
    * True if selectByQuery methods have to be generated
    */
   var genSelector: Boolean = false

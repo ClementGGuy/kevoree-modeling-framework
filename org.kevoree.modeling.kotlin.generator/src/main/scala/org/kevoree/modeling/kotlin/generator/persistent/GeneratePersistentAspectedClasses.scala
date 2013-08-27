@@ -512,7 +512,7 @@ class GeneratePersistentAspectedClasses(ctx: GenerationContext) extends KMFQLFin
     ctxV.put("packElem",ProcessorHelper.fqn(ctx, packElement))
     ctxV.put("ePackage",packElement)
     ctxV.put("modelVersion",modelVersion)
-    ctxV.put("ProcessorHelper", new ProcessorHelperClass)
+    ctxV.put("ProcessorHelper", new ProcessorHelperClass(ctx))
     ctxV.put("FQNPackBaseImpl",ProcessorHelper.fqn(ctx, packElement) +".persistency.mdb")
     ctxV.put("ctx",ctx)
     template.merge(ctxV,pr)

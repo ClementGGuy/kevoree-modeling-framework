@@ -40,7 +40,7 @@ trait EqualsGenerator {
     val ctxV = new VelocityContext()
     ctxV.put("ctx", ctx)
     ctxV.put("currentClass", cls)
-    ctxV.put("FQNHelper", new ProcessorHelperClass())
+    ctxV.put("FQNHelper", new ProcessorHelperClass(ctx))
     template.merge(ctxV, pr)
   }
 

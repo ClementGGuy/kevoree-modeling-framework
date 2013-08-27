@@ -49,7 +49,7 @@ trait DiffGenerator {
     ve.init()
     val template = ve.getTemplate("templates/DefaultModelCompare.vm")
     val ctxV = new VelocityContext()
-    ctxV.put("helper", new ProcessorHelperClass())
+    ctxV.put("helper", new ProcessorHelperClass(ctx))
     ctxV.put("ctx", ctx)
     ctxV.put("packageName", packageName)
 
@@ -76,7 +76,7 @@ trait DiffGenerator {
     ve.init()
     val template = ve.getTemplate("templates/trace/DefaultTraceSequence.vm")
     val ctxV = new VelocityContext()
-    ctxV.put("helper", new ProcessorHelperClass())
+    ctxV.put("helper", new ProcessorHelperClass(ctx))
     ctxV.put("ctx", ctx)
     template.merge(ctxV, pr)
     pr.flush()
@@ -138,7 +138,7 @@ trait DiffGenerator {
     val ctxV = new VelocityContext()
     ctxV.put("ctx", ctx)
     ctxV.put("currentClass", cls)
-    ctxV.put("FQNHelper", new ProcessorHelperClass())
+    ctxV.put("FQNHelper", new ProcessorHelperClass(ctx))
     template.merge(ctxV, pr)
   }
 

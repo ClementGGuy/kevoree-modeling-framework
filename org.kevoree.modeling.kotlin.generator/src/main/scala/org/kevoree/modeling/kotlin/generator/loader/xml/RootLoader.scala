@@ -141,7 +141,7 @@ class RootLoader(ctx : GenerationContext) {
 
     val template1 = ve.getTemplate("templates/commands/XMIResolveCommand.vm")
     val ctxV = new VelocityContext()
-    ctxV.put("helper", new org.kevoree.modeling.kotlin.generator.ProcessorHelperClass())
+    ctxV.put("helper", new org.kevoree.modeling.kotlin.generator.ProcessorHelperClass(ctx))
     ctxV.put("ctx", ctx)
 
     template1.merge(ctxV, outputStream)
@@ -163,7 +163,7 @@ class RootLoader(ctx : GenerationContext) {
 
 
   private def generateFactorySetter(pr: PrintWriter) {
-    pr.println("private var mainFactory : " + ProcessorHelper.fqn(ctx, ctx.getBasePackageForUtilitiesGeneration) + ".factory.MainFactory = "+ ProcessorHelper.fqn(ctx, ctx.getBasePackageForUtilitiesGeneration) + ".factory.MainFactory()")
+    pr.println("private var mainFactory : " + ProcessorHelper.mainFactoryFqn(ctx) + " = "+ ProcessorHelper.fqn(ctx, ctx.getBasePackageForUtilitiesGeneration) + ".factory.MainFactory()")
     ctx.packageFactoryMap.values().foreach{factoryFqn =>
     //val factoryPackage = factoryFqn.substring(0, factoryFqn.lastIndexOf("."))
       val factoryName = factoryFqn.substring(factoryFqn.lastIndexOf(".") + 1)

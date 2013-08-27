@@ -33,8 +33,10 @@ import org.eclipse.emf.ecore._
  * Time: 09:49
  */
 
-class ProcessorHelperClass {
+class ProcessorHelperClass(ctx : GenerationContext) {
 
+  var nameProvider : KotlinGeneratorNameProvider = ctx.getNameProvider
+  
   def getLastName(name : String) : String = {
     return name.substring(name.lastIndexOf(".") + 1)
   }
@@ -110,14 +112,7 @@ class ProcessorHelperClass {
   }
 
   def protectReservedWords(word: String): String = {
-    word match {
-      case "type" => "`type`"
-      case "object" => "`object`"
-      case "requires" => "`requires`"
-      case "interfaces" => "`interfaces`"
-      case "package" => "`package`"
-      case _ => word //throw new UnsupportedOperationException("ProcessorHelper::protectReservedWords::No matching found for word: " + word);null
-    }
+    nameProvider.protectReservedWords(word)
   }
 
   def protectReservedJWords(word: String): String = {
@@ -257,18 +252,7 @@ class ProcessorHelperClass {
    * @return the Fully Qualified package name
    */
   def fqn(pack: EPackage): String = {
-
-    if(pack == null){
-      throw new Exception("Null Package , stop generation")
-    }
-
-    var locFqn = protectReservedWords(pack.getName.toLowerCase)
-    var parentPackage = pack.getESuperPackage
-    while (parentPackage != null) {
-      locFqn = parentPackage.getName + "." + locFqn
-      parentPackage = parentPackage.getESuperPackage
-    }
-    locFqn
+    nameProvider.fqn(pack)
   }
 
   /**
@@ -278,16 +262,7 @@ class ProcessorHelperClass {
    * @return the Fully Qualified package name
    */
   def fqn(ctx: GenerationContext, pack: EPackage): String = {
-    ctx.getPackagePrefix match {
-      case Some(prefix) => {
-        if (prefix.endsWith(".")) {
-          prefix + fqn(pack)
-        } else {
-          prefix + "." + fqn(pack)
-        }
-      }
-      case None => fqn(pack)
-    }
+    nameProvider.fqn(ctx, pack)
   }
 
   /**
@@ -296,7 +271,7 @@ class ProcessorHelperClass {
    * @return the Fully Qualified Class name
    */
   def fqn(cls: EClassifier): String = {
-    fqn(cls.getEPackage) + "." + cls.getName
+    nameProvider.fqn(cls)
   }
 
   /**
@@ -306,9 +281,17 @@ class ProcessorHelperClass {
    * @return the Fully Qualified Class name
    */
   def fqn(ctx: GenerationContext, cls: EClassifier): String = {
-    fqn(ctx, cls.getEPackage) + "." + cls.getName
+    nameProvider.fqn(ctx, cls)
   }
 
+  /**
+   * Fully Qualified Name of the main factory used by the loader
+   * @param ctx the generation context
+   * @return the Fully Qualified Factory Name
+   */  
+  def mainFactoryFqn(ctx : GenerationContext) : String = {
+    nameProvider.mainFactoryFqn(ctx)
+  }
 
   private def lookForRootElementByName(rootXmiPackage: EPackage, rootContainerClassName: String): Option[EClass] = {
     var possibleRoot: Option[EClass] = None

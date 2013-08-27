@@ -100,7 +100,8 @@ object ProcessorHelper {
     }
   }
 
-  private val helper = new ProcessorHelperClass
+  //TODO: We should not need to create a new GenerationContext
+  private val helper = new ProcessorHelperClass(new GenerationContext)
 
 
   def getEClassInEPackage(ePackage: EPackage): java.util.List[EClass] = {
@@ -204,6 +205,15 @@ object ProcessorHelper {
    */
   def fqn(ctx: GenerationContext, cls: EClassifier): String = {
     helper.fqn(ctx, cls)
+  }
+  
+  /**
+   * Fully Qualified Name of the main factory used by the loader
+   * @param ctx the generation context
+   * @return the Fully Qualified Factory Name
+   */  
+  def mainFactoryFqn(ctx : GenerationContext) : String = {
+    helper.mainFactoryFqn(ctx)
   }
 
   def collectAllClassifiersInModel(model: XMIResource): java.util.ArrayList[EClassifier] = {

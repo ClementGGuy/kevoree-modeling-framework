@@ -67,7 +67,7 @@ trait PackageFactoryGenerator {
     val template = ve.getTemplate( "FactoryAPI.vm" );
     val ctxV = new VelocityContext()
     ctxV.put("packageName",packageName)
-    ctxV.put("helper", new ProcessorHelperClass())
+    ctxV.put("helper", new ProcessorHelperClass(ctx))
     ctxV.put("ctx",ctx)
     import scala.collection.JavaConversions._
     ctxV.put("formatedFactoryName",formatedFactoryName)

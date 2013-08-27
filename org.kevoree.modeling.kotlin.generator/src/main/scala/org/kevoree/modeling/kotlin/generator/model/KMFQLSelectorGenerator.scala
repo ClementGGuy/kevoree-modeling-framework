@@ -67,7 +67,7 @@ trait KMFQLSelectorGenerator {
     val template = ve.getTemplate("templates/KMFQLSelectorByQuery.vm");
     val ctxV = new VelocityContext()
     ctxV.put("ctx", ctx)
-    ctxV.put("FQNHelper", new ProcessorHelperClass())
+    ctxV.put("FQNHelper", new ProcessorHelperClass(ctx))
     val optionalRelationShipNameGen = cls.getEAllReferences.filter(ref => hasID(ref.getEReferenceType)).size == 1
     ctxV.put("optionalRelationShipNameGen", optionalRelationShipNameGen)
     if (optionalRelationShipNameGen) {

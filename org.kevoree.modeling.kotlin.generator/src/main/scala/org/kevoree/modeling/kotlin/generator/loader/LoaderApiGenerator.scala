@@ -99,7 +99,7 @@ class LoaderApiGenerator(ctx : GenerationContext) {
       val template = ve.getTemplate("templates/commands/ResolveCommand.vm")
       val ctxV = new VelocityContext()
 
-      ctxV.put("helper",new org.kevoree.modeling.kotlin.generator.ProcessorHelperClass())
+      ctxV.put("helper",new org.kevoree.modeling.kotlin.generator.ProcessorHelperClass(ctx))
       ctxV.put("ctx",ctx)
 
       template.merge(ctxV,pr)

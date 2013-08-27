@@ -87,7 +87,7 @@ class JsonLoaderGenerator(ctx: GenerationContext) {
 
     //ctxV.put("rootElement",cls)
     ctxV.put("model", model)
-    ctxV.put("helper", new org.kevoree.modeling.kotlin.generator.ProcessorHelperClass())
+    ctxV.put("helper", new org.kevoree.modeling.kotlin.generator.ProcessorHelperClass(ctx))
     ctxV.put("ctx", ctx)
     ctxV.put("allEClass", getEAllEclass(model))
 
@@ -106,7 +106,7 @@ class JsonLoaderGenerator(ctx: GenerationContext) {
     ve.init()
     val template1 = ve.getTemplate("templates/commands/JSONResolveCommand.vm")
     val ctxV = new VelocityContext()
-    ctxV.put("helper", new org.kevoree.modeling.kotlin.generator.ProcessorHelperClass())
+    ctxV.put("helper", new org.kevoree.modeling.kotlin.generator.ProcessorHelperClass(ctx))
     ctxV.put("ctx", ctx)
 
     template1.merge(ctxV, outputStream)
@@ -129,7 +129,7 @@ class JsonLoaderGenerator(ctx: GenerationContext) {
         ve.init()
         val template1 = ve.getTemplate("templates/jsIO/" + f + ".vm")
         val ctxV = new VelocityContext()
-        ctxV.put("helper", new org.kevoree.modeling.kotlin.generator.ProcessorHelperClass())
+        ctxV.put("helper", new org.kevoree.modeling.kotlin.generator.ProcessorHelperClass(ctx))
         ctxV.put("ctx", ctx)
 
         template1.merge(ctxV, OutputStream)
@@ -150,7 +150,7 @@ class JsonLoaderGenerator(ctx: GenerationContext) {
         ve.init()
         val template1 = ve.getTemplate("templates/jsIO/" + f + ".vm")
         val ctxV = new VelocityContext()
-        ctxV.put("helper", new org.kevoree.modeling.kotlin.generator.ProcessorHelperClass())
+        ctxV.put("helper", new org.kevoree.modeling.kotlin.generator.ProcessorHelperClass(ctx))
         ctxV.put("ctx", ctx)
         template1.merge(ctxV, OutputStream)
         OutputStream.flush()
@@ -172,7 +172,7 @@ class JsonLoaderGenerator(ctx: GenerationContext) {
         ve.init()
         val template1 = ve.getTemplate("templates/json/" + f + ".vm")
         val ctxV = new VelocityContext()
-        ctxV.put("helper", new org.kevoree.modeling.kotlin.generator.ProcessorHelperClass())
+        ctxV.put("helper", new org.kevoree.modeling.kotlin.generator.ProcessorHelperClass(ctx))
         ctxV.put("ctx", ctx)
 
         template1.merge(ctxV, OutputStream)
